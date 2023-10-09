@@ -1,0 +1,25 @@
+
+:host {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: black;
+}
+
+/* Style the card title */
+.lightning-card__title {
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Style the "Enter Salary" label */
+lightning-input {
+    font-size: 24px;
+    color: black;
+}
+
+/* Style the paragraph elements */
+p {
+    font-size: 18px;
+    color: black;
+}
