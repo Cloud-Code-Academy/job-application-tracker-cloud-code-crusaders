@@ -17,20 +17,22 @@ export default class TaxCalculator extends LightningElement {
     sixMonthsPay = 0;
     monthlyPay = 0;
     biWeeklyPay = 0;
-
+   
     calculatePay(event) {
         this.salary = parseFloat(event.target.value);
+    
         // For calculating Federal Tax, you can loop through the tax brackets
         for (const bracket of federalTaxRates) {
             if (this.salary >= bracket.minIncome && this.salary <= bracket.maxIncome) {
                 const federalTax = (bracket.rate * this.salary) - (bracket.minIncome * bracket.rate);
-                this.yearlyPay = this.salary - (federalTax + (this.salary * socialSecurityRate) + (this.salary * medicareWithholdingRate));
+                this.yearlyPay = (this.salary - (federalTax + (this.salary * socialSecurityRate) + (this.salary * medicareWithholdingRate))).toLocaleString(undefined, { maximumFractionDigits: 2 });
                 break;
             }
         }
+    
         // Calculate other pay values here
-        this.sixMonthsPay = this.salary / 2;
-        this.monthlyPay = this.salary / 12;
-        this.biWeeklyPay = this.salary / 26;
+        this.sixMonthsPay = (this.salary / 2).toLocaleString(undefined, { maximumFractionDigits: 2 });
+        this.monthlyPay = (this.salary / 12).toLocaleString(undefined, { maximumFractionDigits: 2 });
+        this.biWeeklyPay = (this.salary / 26).toLocaleString(undefined, { maximumFractionDigits: 2 });
     }
-}
+}   

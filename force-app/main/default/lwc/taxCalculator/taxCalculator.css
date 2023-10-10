@@ -1,25 +1,25 @@
-
+/* Apply the styles to the entire component */
+/* Apply the styles to the entire component */
 :host {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans';
     font-size: 18px;
-    color: black;
-}
-
-/* Style the card title */
-.lightning-card__title {
-    font-size: 36px;
-    font-weight: bold;
     color: black;
 }
 
 /* Style the "Enter Salary" label */
-lightning-input {
-    font-size: 24px;
-    color: black;
+.headerFont {
+    font-size: 30px; 
+    color: red; 
+    font-family: 'Open Sans'; 
+    font-weight: bold; 
+    padding: 5px 5px 5px 15px;
 }
 
 /* Style the paragraph elements */
 p {
-    font-size: 18px;
+    font-size: 16px;
     color: black;
+    margin: 0; /* Remove default margin */
+    padding: 10px 0; /* Add padding to the top and bottom */
+    font-weight: bold;
 }
