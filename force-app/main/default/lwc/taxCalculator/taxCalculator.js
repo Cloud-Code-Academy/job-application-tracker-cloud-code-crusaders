@@ -14,6 +14,7 @@ const federalTaxRates = [
 export default class TaxCalculator extends LightningElement {
     salary = 0;
     yearlyPay = 0;
+    yearlyRoundedPay = 0;
     sixMonthsPay = 0;
     monthlyPay = 0;
     biWeeklyPay = 0;
