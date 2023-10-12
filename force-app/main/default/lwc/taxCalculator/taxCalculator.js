@@ -25,14 +25,17 @@ export default class TaxCalculator extends LightningElement {
         for (const bracket of federalTaxRates) {
             if (this.salary >= bracket.minIncome && this.salary <= bracket.maxIncome) {
                 const federalTax = (bracket.rate * this.salary) - (bracket.minIncome * bracket.rate);
-                this.yearlyPay = (this.salary - (federalTax + (this.salary * socialSecurityRate) + (this.salary * medicareWithholdingRate))).toLocaleString(undefined, { maximumFractionDigits: 2 });
+ 
+                this.yearlyPay = (this.salary - (federalTax + (this.salary * socialSecurityRate) + (this.salary * medicareWithholdingRate)));
                 break;
             }
         }
     
-        // Calculate other pay values here
-        this.sixMonthsPay = (this.yearlyPay / 2).toLocaleString(undefined, { maximumFractionDigits: 2 });
-        this.monthlyPay = (this.yearlyPay / 12).toLocaleString(undefined, { maximumFractionDigits: 2 });
-        this.biWeeklyPay = (this.yearlyPay / 26).toLocaleString(undefined, { maximumFractionDigits: 2 });
-    }
-}   
+         // Calculate other pay values here
+         this.yearlyRoundedPay = (parseFloat(this.yearlyPay)).toLocaleString(undefined, { maximumFractionDigits: 2 });
+         this.sixMonthsPay = (parseFloat(this.yearlyPay) / 2).toLocaleString(undefined, { maximumFractionDigits: 2 });
+         this.monthlyPay = (parseFloat(this.yearlyPay) / 12).toLocaleString(undefined, { maximumFractionDigits: 2 });
+         this.biWeeklyPay = (parseFloat(this.yearlyPay) / 26).toLocaleString(undefined, { maximumFractionDigits: 2 });
+     }
+}
+  

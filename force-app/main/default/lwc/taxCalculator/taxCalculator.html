@@ -1,10 +1,9 @@
 <template>
     <lightning-card>
         <h1 class="headerFont">Salary and Pay Calculator</h1>
-     
         <div class="slds-p-around_medium">
             <lightning-input label="Enter Salary" type="number" onchange={calculatePay} class="custom-label" ></lightning-input>
-            <p style="margin-top: 10px;">Yearly Pay: ${yearlyPay}</p>
+            <p style="margin-top: 10px;">Yearly Pay: ${yearlyRoundedPay}</p>
             <p>Six Months Pay: ${sixMonthsPay}</p>
             <p>Monthly Pay: ${monthlyPay}</p>
             <p>Bi-Weekly Pay: ${biWeeklyPay}</p>
