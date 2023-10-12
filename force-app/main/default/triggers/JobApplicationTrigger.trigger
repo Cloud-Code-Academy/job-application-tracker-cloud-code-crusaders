@@ -38,21 +38,6 @@ trigger JobApplicationTrigger on Job_Application__c (after insert, after update)
             Send a follow-up email thanking the interviewer and asking for feedback
             Review your notes and reflect on areas of improvement */
 
-    public static void taskUpdateFromStatus();
-        if (Trigger.isAfter){
-        List<Task> taskUpdates = new List<Task>();
-        for (Job_Application__c jobs : Trigger.new){
-            if(jobs.Status__c == 'Saved'){
-                Task tsk = new Task();
-                tsk.Subject = 'New Saved Job Posting for review!';
-                tsk.Description = 'Check if the job description aligns with your interests and values. Review the highlighted skills to see if the role is a good fit. Research the company or role and update the priority.';
-                tsk.Priority = 'Normal';
-                tsk.ActivityDate = Date.today().addDays(2);
-                taskUpdates.add(tsk);
-            }
-        }
-                insert taskUpdates;
-
-    }
+        JobApplicationTriggerHandler.updateTask(Trigger.new);
 
 }
