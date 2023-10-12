@@ -31,8 +31,8 @@ export default class TaxCalculator extends LightningElement {
         }
     
         // Calculate other pay values here
-        this.sixMonthsPay = (this.salary / 2).toLocaleString(undefined, { maximumFractionDigits: 2 });
-        this.monthlyPay = (this.salary / 12).toLocaleString(undefined, { maximumFractionDigits: 2 });
-        this.biWeeklyPay = (this.salary / 26).toLocaleString(undefined, { maximumFractionDigits: 2 });
+        this.sixMonthsPay = (this.yearlyPay / 2).toLocaleString(undefined, { maximumFractionDigits: 2 });
+        this.monthlyPay = (this.yearlyPay / 12).toLocaleString(undefined, { maximumFractionDigits: 2 });
+        this.biWeeklyPay = (this.yearlyPay / 26).toLocaleString(undefined, { maximumFractionDigits: 2 });
     }
 }   
