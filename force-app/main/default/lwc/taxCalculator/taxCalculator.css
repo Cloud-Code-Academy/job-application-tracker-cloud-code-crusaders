@@ -23,3 +23,28 @@ p {
     padding: 10px 0; /* Add padding to the top and bottom */
     font-weight: bold;
 }
+
+.pay-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically align contents */
+}
+
+.pay-values {
+    flex: 1; /* Make the pay values take up available space */
+    padding: 10px;
+}
+
+.rounded-box {
+    width: 250px; /* width  */
+    background-color: #f0f0f0; /* Background color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+}
+    .red-text {
+        color: red;
+    }
+    .subTitleText {
+        text-decoration: underline;
+        font-size: 18px;
+    }
