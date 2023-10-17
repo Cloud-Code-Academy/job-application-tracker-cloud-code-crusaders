@@ -1,4 +1,4 @@
-import { LightningElement,} from 'lwc';
+import { LightningElement} from 'lwc';
 const socialSecurityRate = .0620;
 const medicareWithholdingRate = .0145;
 const federalTaxRates = [
