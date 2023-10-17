@@ -1,4 +1,7 @@
-import { LightningElement} from 'lwc';
+import { LightningElement, wire, api} from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
+
+const FIELDS = ['Job_Application__c.Salary__c'];
 const socialSecurityRate = .0620;
 const medicareWithholdingRate = .0145;
 const federalTaxRates = [
@@ -21,28 +24,26 @@ export default class TaxCalculator extends LightningElement {
     federalWithholdings = 0;
     socialSecurityWithholdings = 0;
     medicareWitholdings = 0;
-   
-
-        calculatePay(event) {
-            const inputValue = event.target.value.trim(); // Remove leading/trailing spaces
-        
-            if (inputValue === '') {
-                // If the input is empty, reset all values to zero
-                this.salary = 0;
-                this.yearlyPay = 0;
-                this.yearlyRoundedPay = 0;
-                this.sixMonthsPay = 0;
-                this.monthlyPay = 0;
-                this.biWeeklyPay = 0;
-                this.federalWithholdings = 0;
-                this.socialSecurityWithholdings = 0;
-                this.medicareWitholdings = 0;
-            } else {
-                // If the input is not empty, proceed with calculations
-                this.salary = parseFloat(inputValue);
+    retrievedSalary = 0;
+    @api recordId; // This will automatically receive the record ID
     
-        // For calculating Federal Tax, you can loop through the tax brackets
-        for (const bracket of federalTaxRates) {
+    @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
+    wiredRecord({ error, data }) {
+        if (data) {
+            // Access the Salary__c field data here
+              this.retrievedSalary = data.fields.Salary__c.value;
+              this.handleCalculations();
+           // this.salary = this.retrievedSalary;      
+            // Process the salary data as needed
+        } else if (error) {
+            // Handle error here
+        }
+    }
+    handleCalculations() {
+        // Calculate salary-related values here
+        this.salary = this.retrievedSalary;
+         // For calculating Federal Tax, you can loop through the tax brackets
+         for (const bracket of federalTaxRates) {
             if (this.salary >= bracket.minIncome && this.salary <= bracket.maxIncome) {
                 const federalTax = (bracket.rate * this.salary) - (bracket.minIncome * bracket.rate);
                 this.federalWithholdings = federalTax.toLocaleString(undefined, { maximumFractionDigits: 2 });
@@ -65,5 +66,26 @@ export default class TaxCalculator extends LightningElement {
          this.monthlyPay = (parseFloat(this.yearlyPay) / 12).toLocaleString(undefined, { maximumFractionDigits: 2 });
          this.biWeeklyPay = (parseFloat(this.yearlyPay) / 26).toLocaleString(undefined, { maximumFractionDigits: 2 });
        }
+    
+        calculatePay(event) {
+            const inputValue = event.target.value.trim(); // Remove leading/trailing spaces
+        
+            if (inputValue === ''  && this.retrievedSalary === null) {
+                // If the input is empty, reset all values to zero
+                this.salary = 0;
+                this.yearlyPay = 0;
+                this.yearlyRoundedPay = 0;
+                this.sixMonthsPay = 0;
+                this.monthlyPay = 0;
+                this.biWeeklyPay = 0;
+                this.federalWithholdings = 0;
+                this.socialSecurityWithholdings = 0;
+                this.medicareWitholdings = 0;
+            } else if (inputValue !== '') {
+              //  If the input is not empty, proceed with calculations
+                this.salary = parseFloat(inputValue);
+           
+            this.handleCalculations();  
     }
-} 
+}
+}

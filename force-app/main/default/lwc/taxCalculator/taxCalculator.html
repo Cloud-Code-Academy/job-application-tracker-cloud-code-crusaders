@@ -1,15 +1,14 @@
 <template>
     <lightning-card>
-        <h1 class="headerFont">Salary and Pay Calculator</h1>
-     
+        <h1 class="headerFont">Net Salary</h1>
         <div class="slds-p-around_medium">
-            <lightning-input label="Enter Salary" type="number" onchange={calculatePay} class="custom-label" ></lightning-input>
+           <lightning-input label="Enter Salary" type="number" onchange={calculatePay} class="custom-label" value={salary}></lightning-input>
             <div class="pay-container slds-p-around_medium">
                 <div class="pay-values">
-                    <p>Yearly Pay: <span class="red-text">${yearlyRoundedPay}</span></p>
-                    <p>Six Months Pay: <span class="red-text">${sixMonthsPay}</span></p>
-                    <p>Monthly Pay: <span class="red-text">${monthlyPay}</span></p>
-                    <p>Bi-Weekly Pay: <span class="red-text">${biWeeklyPay}</span></p>
+                    <p>Yearly Pay: <span class="green-text">${yearlyRoundedPay}</span></p>
+                    <p>Six Months Pay: <span class="green-text">${sixMonthsPay}</span></p>
+                    <p>Monthly Pay: <span class="green-text">${monthlyPay}</span></p>
+                    <p>Bi-Weekly Pay: <span class="green-text">${biWeeklyPay}</span></p>
                 </div>
                 <div class="rounded-box slds-p-around_medium">
                     <p class="subTitleText">Yearly Deductions</p>
