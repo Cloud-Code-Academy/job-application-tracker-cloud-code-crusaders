@@ -1,10 +1,27 @@
 public with sharing class JoobleCallout {
+
+   // @future(callout =true)
+    public static String postJoobleCallout(){
    
-        private final static String authToken = '2a3be2fb-3555-410e-924b-8e2c964de9d3';
-        private final static String sEndpoint = 'https://jooble.org/api/';
-        private final static Integer iTimeout = 20000;
+       // private final static String authToken = '2a3be2fb-3555-410e-924b-8e2c964de9d3';
+        //private final static String sEndpoint = 'https://jooble.org/api/';
+        
+            Http postCall = new Http();
+            HttpRequest req = new HttpRequest();
+            req.setEndpoint('https://jooble.org/api/2a3be2fb-3555-410e-924b-8e2c964de9d3');
+            req.setHeader ('Content-type', 'application/json');
+            req.setMethod('POST');
+            req.setBody('{keywords: "Salesforce Developer", location: "remote"}');
+            
+            HttpResponse response = postCall.send(req);
+
+            return response.getBody();
+        }
+    }
+
+
     
-       // @Future(callout=true)
+       /*
         public static String searchCallout(String sParameter, String sResource){
             String theEndpoint = sEndpoint + '/search/' + sResource + '?api_key=' + authToken;                  
             HttpRequest theRequest = new HttpRequest();
@@ -20,4 +37,4 @@ public with sharing class JoobleCallout {
             theResponse = oHttp.send(theRequest);
             return theResponse.getBody();
        }
-}
+}*/
