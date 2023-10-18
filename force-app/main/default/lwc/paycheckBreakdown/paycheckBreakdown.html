@@ -1,13 +1,13 @@
 <template>
     <lightning-card>
-        <h1 class="headerFont">Paycheck Breakdown</h1>
+        <h1 class="headerFont">Gross Pay</h1>
         
         <div class="slds-p-around_medium">
             <lightning-input label="Enter Salary" type="number" onchange={calculatePay} class="custom-label"></lightning-input>
-            <p style="margin-top: 10px;">Six Month Pay: ${sixMonthsPay}</p>
-            <p>Monthly Pay: ${monthlyPay}</p>
-            <p>Bi-Weekly Pay: ${biWeeklyPay}</p>
-            <p>Weekly Pay: ${weeklyPay}</p>
+            <p style="margin-top: 10px;">Six Month Pay: <span class="redtext">${sixMonthsPay}</span></p>
+            <p>Monthly Pay: <span class="redtext">${monthlyPay}</span></p>
+            <p>Bi-Weekly Pay: <span class="redtext">${biWeeklyPay}</span></p>
+            <p>Weekly Pay: <span class="redtext">${weeklyPay}</span></p>
         </div>
     </lightning-card>
 </template>

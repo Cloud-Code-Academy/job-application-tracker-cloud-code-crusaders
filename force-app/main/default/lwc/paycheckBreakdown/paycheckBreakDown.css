@@ -9,7 +9,7 @@
 /* Style the "Enter Salary" label */
 .headerFont {
     font-size: 30px; 
-    color: red; 
+    color: green; 
     font-family: 'Open Sans'; 
     font-weight: bold; 
     padding: 5px 5px 5px 15px;
@@ -21,5 +21,10 @@ p {
     color: black;
     margin: 0; /* Remove default margin */
     padding: 10px 0; /* Add padding to the top and bottom */
+    font-weight: bold;
+}
+
+.redtext {
+    color: green;
     font-weight: bold;
 }
