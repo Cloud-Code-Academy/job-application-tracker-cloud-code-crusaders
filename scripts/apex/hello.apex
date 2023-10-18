@@ -1,1 +1,1 @@
-System.debug(JoobleCallout.searchCallout ('Salesforce Developer', 'remote'));
+System.debug(JoobleCallout.searchCallout ('keywords: Salesforce Developer', 'location: remote'));
