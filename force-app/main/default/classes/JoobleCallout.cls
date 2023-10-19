@@ -20,12 +20,7 @@ public with sharing class JoobleCallout {
 
     public static Job_Application__c createJobsFromJson(String newJobs) {
         Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(newJobs);
-
-        List<Map<String, Object>> allMaps = new List<Map<String, Object>>();
-        for (Object jobPost : jobList){
-            allMaps.add()
-        }
-
+        
         Job_Application__c newJob = new Job_Application__c();
             newJob.Position_Title__c = (String) jsonMap.get('title');
             newJob.Work_Location__c = (String) jsonMap.get('location');
@@ -38,7 +33,7 @@ public with sharing class JoobleCallout {
             newJob.Job_Posted_Date__c = (Datetime) jsonMap.get('updated');
             newJob.External_Job_Id__c = (String) jsonMap.get('id');
             
-        return newJob;
+         return newJob;
     }
 
 }
