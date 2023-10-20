@@ -1,7 +1,8 @@
 public with sharing class JoobleCallout {
 
-   // @Future(callout=true)
-    public static String postJoobleCallout(){
+   @Future(callout=true)
+
+    public static void postJoobleCallout(){
         
             Http postCall = new Http();
             HttpRequest request = new HttpRequest();
@@ -14,29 +15,44 @@ public with sharing class JoobleCallout {
 
             String newJobs = (response.getBody());
 
-            return newJobs;
+           // return newJobs;
         }
-    
 
-    public static Job_Application__c createJobsFromJson(String newJobs) {
-        Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(newJobs);
-        
-        Job_Application__c newJob = new Job_Application__c();
-            newJob.Position_Title__c = (String) jsonMap.get('title');
-            newJob.Work_Location__c = (String) jsonMap.get('location');
-            newJob.Description__c = (String) jsonMap.get('snippet');
-            newJob.Salary__c = (Decimal) jsonMap.get('salary');
-            newJob.Website_Posting__c = (String) jsonMap.get('source');
-            newJob.Notes__c = (String) jsonMap.get('type');
-            newJob.Link__c = (String) jsonMap.get('link');
-            newJob.Company_Name__c = (String) jsonMap.get('company');
-            newJob.Job_Posted_Date__c = (Datetime) jsonMap.get('updated');
-            newJob.External_Job_Id__c = (String) jsonMap.get('id');
-            
-         return newJob;
-    }
+public static fromJSON parse(String newJobs){
+    return (fromJSON) System.JSON.deserialize(newJobs, fromJSON.class);
+}
 
 }
+
+    
+
+   /* public static Job_Postings__c createJobsFromJson(String newJobs) {
+        Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(newJobs);
+        
+
+
+        Job_Postings__c newJob = new Job_Postings__c();
+            newJob.Title__c = (String) jsonMap.get('title');
+            newJob.Location__c = (String) jsonMap.get('location');
+            newJob.Snippet__c = (String) jsonMap.get('snippet');
+            newJob.Salary__c = (Decimal) jsonMap.get('salary');
+            newJob.Source__c = (String) jsonMap.get('source');
+            newJob.Type__c = (String) jsonMap.get('type');
+            newJob.Link__c = (String) jsonMap.get('link');
+            newJob.Company__c = (String) jsonMap.get('company');
+            newJob.Updated__c = (Datetime) jsonMap.get('updated');
+            newJob.External_Job_Id__c = (String) jsonMap.get('id');
+            
+            return newJob;
+    }
+
+    for(Job_Posting__c jobsToPost : newJob)
+    
+    if {
+        
+    }
+
+}*/
 
 
     
