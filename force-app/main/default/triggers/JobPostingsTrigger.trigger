@@ -1,10 +1,10 @@
-trigger JobPostingsTrigger on Job_Postings__c (after update) {
+trigger JobPostingsTrigger on Job_Postings__c (after insert) {
 
-    switch on Trigger.operationType{
+   /* switch on Trigger.operationType{
 
-        when AFTER_UPDATE {
-            JoobleCallout.postJoobleCallout(Trigger.new);
+        when AFTER_INSERT {
+            JobPostingTriggerHandler.checkMakeCallout(Trigger.new);
         }
     }
-
+*/
 }
