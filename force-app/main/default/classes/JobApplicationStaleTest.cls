@@ -18,6 +18,7 @@ public class JobApplicationStaleTest {
         Test.startTest();
         String cronExp = '0 0 0 ? * * *';
         System.schedule('Delete Stale Jobs', cronExp, new JobApplicationStale());
+        Test.stopTest();
 
         List<Job_Application__c> closedJobs = [
             SELECT Name, Status__c
