@@ -2,7 +2,7 @@ public with sharing class JoobleCallout {
 
 //@AuraEnabled(cacheable=true)
 
-    public static String postJoobleCallout(){
+    public String postJoobleCallout(String url){
                 
             Http postCall = new Http();
             HttpRequest request = new HttpRequest();
