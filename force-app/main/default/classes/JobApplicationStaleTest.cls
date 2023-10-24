@@ -7,7 +7,7 @@ public class JobApplicationStaleTest {
        // Job_Application__c oldJob = new Job_Application__c(Name = 'Test Job App', Status__c = 'Closed', Follow_up_Date__c = System.Today().addDays(-30));
       //  staleJobs.add(oldJob);
 
-        Job_Application__c oldJob2 = new Job_Application__c(Name = 'Test Job App2', Status__c = 'Accepted', Follow_up_Date__c = System.Today().addDays(-30));
+        Job_Application__c oldJob2 = new Job_Application__c(Name = 'Test Job App2', Status__c = 'Applied', Follow_up_Date__c = System.Today().addDays(-30));
         staleJobs.add(oldJob2);
 
         insert staleJobs;
@@ -17,7 +17,7 @@ public class JobApplicationStaleTest {
 
         Test.startTest();
         String cronExp = '0 0 0 ? * * *';
-        System.schedule('Delete Stale Jobs', cronExp, new JobApplicationStale());
+        System.schedule('Close Stale Job Applications', cronExp, new JobApplicationStale());
         Test.stopTest();
 
         List<Job_Application__c> closedJobs = [
