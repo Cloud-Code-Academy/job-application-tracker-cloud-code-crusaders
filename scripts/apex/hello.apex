@@ -3,38 +3,58 @@ String rawJobs = '"totalCount":1262,"jobs":{[{"title":"Salesforce Project Manage
 
 String newJobs = rawJobs.replaceAll('\n','').replaceAll('\r',''); //scrubs job posting of illegal characters
 //System.debug(newJobs);
- public static String createJobsFromJson(String newJobs){
+// public static Job_Postings__c createJobsFromJson(String newJobs){
        //String newjobs;
-                List<Object> jsonList = (List<Object>)JSON.deserializeUntyped(newJobs);
-                System.debug(jsonList);
+               List<Object> jsonList = (List<Object>)JSON.deserializeUntyped(newJobs);
+              //  System.debug(jsonList);
+             // fromJSON jobsJson = (fromJSON)JSON.deserialize(newJobs,fromJSON.class);
                 List<Job_Postings__c> jobsList =  new List<Job_Postings__c>();
                 
                for (Object obj : jsonList) {
-                Map<String, Object> jsonMap = (Map<String, Object>)obj;
-                String title = (String) jsonMap.get('title');
+               Map<String, Object> jsonMap = (Map<String, Object>)obj;
+                //String title = (String) jsonMap.get('title');
                // if (title.toLowerCase().contains('Salesforce')) {
-                        Job_Postings__c record = new Job_Postings__c();
-                       // record.Title__c = (String) jsonMap.get;
-                        record.Title__c = (String) jsonMap.get('title');
-                        record.Location__c = (String) jsonMap.get('location');
-                        record.Snippet__c = (String) jsonMap.get('snippet');
-                        record.Salary__c = (String) jsonMap.get('salary');
-                        record.Source__c = (String) jsonMap.get('source');
-                        record.Type__c = (String) jsonMap.get('type');
-                        record.Link__c = (String) jsonMap.get('link');
-                        record.Company__c = (String) jsonMap.get('company');
-                        // record.Updated__c = (Datetime) jsonMap.get('updated');
-                // record.External_Job_Id__c = (String) jsonMap.get('id');
-                        jobsList.add(record);
-                }
+                       Job_Postings__c record = new Job_Postings__c();
+            record.Title__c = (String) jsonMap.get('title');
+            record.Location__c = (String) jsonMap.get('location');
+            record.Snippet__c = (String) jsonMap.get('snippet');
+            record.Salary__c = (String) jsonMap.get('salary');
+            record.Source__c = (String) jsonMap.get('source');
+            record.Type__c = (String) jsonMap.get('type');
+            record.Link__c = (String) jsonMap.get('link');
+            record.Company__c = (String) jsonMap.get('company');
+           // record.Updated__c = (Datetime) jsonMap.get('updated');
+            //record.External_Job_Id__c = (String) jsonMap.get('id');
+            jobsList.add(record);
+    }
+     if(!jobsList.isEmpty()){
+            insert jobsList;
+            }
 
-                List<Job_Postings__c> jobsToCreate = new List<Job_Postings__c>();
+              /* List<Job_Postings__c> jobsToCreate = new List<Job_Postings__c>();
                 for (Job_Postings__c filterJobs : jobsList) {
                 if ((!jobsList.isEmpty()) && (filterJobs.Title__c.contains('Salesforce')))
                 jobsToCreate.add(filterJobs);
         }
-                insert jobsToCreate;
-          return null;
+                insert jobsToCreate;*/
+                
+          //return null;
+ 
+ /*public class fromJSON{
+	Integer totalCount;
+	List<Details> jobs;
  }
+public class Details {
+	String title;	
+	String location;	
+	String snippet;	
+	String salary;	
+	String source;	
+	String type;	
+	String link;	
+	String company;
+	//String updated;
+	String id;	
+	}*/
  
 

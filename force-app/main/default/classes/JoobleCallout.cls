@@ -13,25 +13,26 @@ public with sharing class JoobleCallout {
             
             HttpResponse response = postCall.send(request);
            
-          //  if (response.getStatusCode() == 200){    
+           if (response.getStatusCode() == 200){    
 
             String newJobs = response.getbody().replaceAll('\n','').replaceAll('\r',''); //scrubs job posting of illegal characters
-               // return newJobs;
+              //  return newJobs;
                 }
+        }
         
 
     
        public static void createJobsFromJson(String newJobs){
        //String newjobs;
-                List<Object> jsonList = (List<Object>)JSON.deserialize(newJobs, fromJSON.class);
+                List<Object> jsonList = (List<Object>)JSON.deserializeUntyped(newJobs);
                 List<Job_Postings__c> jobsList =  new List<Job_Postings__c>();
                 
                for (Object obj : jsonList) {
                 Map<String, Object> jsonMap = (Map<String, Object>)obj;
                // String title = (String) jsonMap.get('title');
-               // if (title.toLowerCase().contains('Salesforce')) {
+                //if (title.toLowerCase().contains('Salesforce')) {
                         Job_Postings__c record = new Job_Postings__c();
-                       // record.Title__c = title;
+                  //      record.Title__c = title;
                         record.Title__c = (String) jsonMap.get('title');
                         record.Location__c = (String) jsonMap.get('location');
                         record.Snippet__c = (String) jsonMap.get('snippet');
@@ -45,35 +46,33 @@ public with sharing class JoobleCallout {
                         jobsList.add(record);
                 }
         
+                if (!jobsList.isEmpty()){
+
+         insert jobsList;
+       }
+        //  return null;
+
         
 
-          //insert jobsList;
-       // }
-         // return null;
 
-        
-
-
-       List<Job_Postings__c> jobsToCreate = new List<Job_Postings__c>();
-     for (Job_Postings__c filterJobs : jobsList) {
+       //List<Job_Postings__c> jobsToCreate = new List<Job_Postings__c>();
+     /*  for (Job_Postings__c filterJobs : jobsList) {
                 if ((!jobsList.isEmpty()) && (filterJobs.Title__c.contains('Salesforce'))){
-                        jobsToCreate.add(filterJobs);
-                //Database.SaveResult[] jobsToCreate = Database.insert(jobsList, false);
+                Database.SaveResult[] jobsToCreate = Database.insert(jobsList, false);//jobsToCreate.add(filterJobs);
                 }
         }
-        insert jobsToCreate;
-
                 /*for(Database.SaveResult sr : jobsToCreate){
                         if(!sr.isSuccess()){
                             for(Database.Error err : sr.getErrors()){
                                 System.debug(err.getMessage());
                             }
                         }
+               // insert jobsToCreate;
                 }
         }*/
 }
-}
 
+}
 
 
 
