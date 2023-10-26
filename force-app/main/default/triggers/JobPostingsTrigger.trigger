@@ -1,10 +1,11 @@
 trigger JobPostingsTrigger on Job_Postings__c (after insert) {
 
-   /* switch on Trigger.operationType{
+  /* switch on Trigger.operationType{
 
         when AFTER_INSERT {
-            JobPostingTriggerHandler.checkMakeCallout(Trigger.new);
-        }
+            JobPostingTriggerHandler.createJobsFromJson(Trigger.new);
+        
     }
-*/
+
+}*/
 }

@@ -1,7 +1,7 @@
 public class fromJSON{
 
-	//public Integer totalCount;
-	//public String jobs;
+	public Integer totalCount;
+	public List<jobs> jobs;
 
 	public class Details {
 		public String title;	
