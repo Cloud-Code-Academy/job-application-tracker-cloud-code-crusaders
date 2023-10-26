@@ -1,4 +1,4 @@
-trigger JobApplicationTrigger on Job_Application__c (before insert, before update) {
+trigger JobApplicationTrigger on Job_Application__c (before insert, before update, after insert, after update) {
     if (Trigger.isBefore) {
         if (Trigger.isInsert || Trigger.isUpdate) {
             // Call the PrimaryContactHandler to update the Primary Contact
