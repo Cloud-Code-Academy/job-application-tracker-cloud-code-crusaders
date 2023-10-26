@@ -1,9 +1,9 @@
 public class fromJSON{
-
+/*
 	public Integer totalCount;
-	public List<jobs> jobs;
+	public List<Job_Postings__c> jobs;
 
-	public class Details {
+public class Details {
 		public String title;	
 		public String location;	
 		public String snippet;	
@@ -18,6 +18,6 @@ public class fromJSON{
 
 	public static fromJSON parse(String json){
 		return (fromJSON) System.JSON.deserialize(json, fromJSON.class);
-	}
+	}*/
 }
 
