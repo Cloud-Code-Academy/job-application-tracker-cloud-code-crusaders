@@ -1,13 +1,14 @@
-List<Job_Application__c> staleJobs = [
+global class JobApplicationStale implements Schedulable {
+
+    global void execute (SchedulableContext Sc) {
+        List<Job_Application__c> staleJobs = [
             SELECT Id, Status__c, LastModifiedDate, Name, Follow_up_Date__c
             FROM Job_Application__c
             WHERE (Status__c <> 'Closed' AND Status__c <> 'Accepted' AND Status__c <> 'Saved') 
             AND Follow_up_Date__c < LAST_N_DAYS:30
         ];
 
-System.debug(staleJobs);
-
-       if(!staleJobs.isEmpty()){
+        if(!staleJobs.isEmpty()){
 
             List<Job_Application__c> closedJobs = new List<Job_Application__c>();
 
@@ -18,6 +19,7 @@ System.debug(staleJobs);
             }
 
                 update closedJobs;
-                System.debug(closedJobs);
         }
+    }
 
+}
