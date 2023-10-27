@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Save__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used to indicate that I want to save the job posting and create a job application record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Do you want to save this and create a job application record?</inlineHelpText>
+    <label>Save</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
