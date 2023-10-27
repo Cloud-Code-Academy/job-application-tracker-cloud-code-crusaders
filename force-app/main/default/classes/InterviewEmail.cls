@@ -17,7 +17,7 @@ global class InterviewEmail implements Schedulable {
                 try {
                     // Create and send email
                     Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-                    mail.setToAddresses(new String[] { recipientEmail });
+                    mail.setToAddresses(new String[] { 'therontroxel@gmail.com' });
                     mail.setSubject('Interview Reminder');
                     mail.setPlainTextBody('This is a reminder of your interview scheduled for ' + interview.Interview_Date__c + ' at ' + interview.Company_Name__c);
     
@@ -31,4 +31,3 @@ global class InterviewEmail implements Schedulable {
     }
     
 }
-

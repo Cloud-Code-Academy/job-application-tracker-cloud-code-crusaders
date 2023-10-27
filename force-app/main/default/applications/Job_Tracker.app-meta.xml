@@ -42,5 +42,4 @@
     <tabs>Interview__c</tabs>
     <tabs>Job_Postings__c</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Job_Tracker_UtilityBar</utilityBar>
 </CustomApplication>
