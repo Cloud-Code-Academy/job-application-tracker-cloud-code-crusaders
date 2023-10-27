@@ -4,7 +4,7 @@ public with sharing class JoobleCallout {
 
         public static void postJoobleCallout(){
                 
-                 Http postCall = new Http();
+                Http postCall = new Http();
                 HttpRequest request = new HttpRequest();
                 request.setEndpoint('https://jooble.org/api/2a3be2fb-3555-410e-924b-8e2c964de9d3');
                 request.setHeader ('Content-type', 'application/json');
