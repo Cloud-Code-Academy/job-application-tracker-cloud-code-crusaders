@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <description>The decision to search for a job.</description>
+        <name>Job_Search</name>
+        <label>Job Search</label>
+        <locationX>314</locationX>
+        <locationY>242</locationY>
+        <defaultConnectorLabel>Unknown</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Job_Search</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Yes_I_want_to_do_it</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Job_Search_Record</targetReference>
+            </connector>
+            <label>Yes Job Search</label>
+        </rules>
+        <rules>
+            <name>No_Job_Search</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>No_I_changed_my_mind</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>End_Job_Search</targetReference>
+            </connector>
+            <label>No Job Search</label>
+        </rules>
+    </decisions>
+    <description>Screenflow to create a record that will trigger the job search callout.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Populates the date of the job search</description>
+        <name>JobPostingName</name>
+        <dataType>String</dataType>
+        <expression>&quot;Job Search Date: &quot; &amp; TEXT({!$Flow.CurrentDate})</expression>
+    </formulas>
+    <interviewLabel>Job Search Callout {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Job Search Callout</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>creates a job search record</description>
+        <name>Job_Search_Record</name>
+        <label>Job Search Record</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <connector>
+            <targetReference>StartCallout</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Make_Callout__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>JobPostingName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Snippet__c</field>
+            <value>
+                <stringValue>This is an automated record that generated a job search listing for the home page.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>This has been automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Job_Postings__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <screens>
+        <name>End_Job_Search</name>
+        <label>End Job Search</label>
+        <locationX>314</locationX>
+        <locationY>350</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>AnotherDay</name>
+            <fieldText>&lt;p&gt;You can look another day!&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Good Bye!</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>JopSearchScreen</name>
+        <label>JopSearchScreen</label>
+        <locationX>314</locationX>
+        <locationY>134</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Job_Search</targetReference>
+        </connector>
+        <fields>
+            <name>JobSearchScreen</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Do you want to search for a job?&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Yes_I_want_to_do_it</name>
+            <dataType>Boolean</dataType>
+            <defaultValue>
+                <booleanValue>false</booleanValue>
+            </defaultValue>
+            <fieldText>Yes, I want to do it.</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>No_I_changed_my_mind</name>
+            <dataType>Boolean</dataType>
+            <fieldText>No, I changed my mind.</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <nextOrFinishButtonLabel>Let&apos;s go!</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>StartCallout</name>
+        <label>StartCallout</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>StartSearch</name>
+            <fieldText>&lt;p&gt;Thanks! You&apos;ve started the search! Stay tuned for the results.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>I&apos;m Done!</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>JopSearchScreen</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <description>Creates a Job Posting record that triggers a callout</description>
+        <name>JobSearching</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Job_Postings__c</objectType>
+    </variables>
+</Flow>

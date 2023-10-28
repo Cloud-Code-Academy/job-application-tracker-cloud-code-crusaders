@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Job_Application__c</entityName>
+    <fieldName>Status__c</fieldName>
+    <masterLabel>Application Status</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;I&amp;#39;m doing it!&lt;/p&gt;</info>
+        <picklistValueName>Accepted</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Yep, I applied.&lt;/p&gt;</info>
+        <picklistValueName>Applied</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;I&amp;#39;m actively applying.&lt;/p&gt;</info>
+        <picklistValueName>Applying</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Bye Bye!&lt;/p&gt;</info>
+        <picklistValueName>Closed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Woot! I&amp;#39;m starting the interview process.&lt;/p&gt;</info>
+        <picklistValueName>Interviewing</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Let&amp;#39;s talk numbers.&lt;/p&gt;</info>
+        <picklistValueName>Negotiating</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;I&amp;#39;ve saved this application, but I haven&amp;#39;t applied.&lt;/p&gt;</info>
+        <picklistValueName>Saved</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

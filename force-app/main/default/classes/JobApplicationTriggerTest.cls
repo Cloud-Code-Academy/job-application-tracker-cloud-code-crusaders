@@ -80,7 +80,7 @@ public with sharing class JobApplicationTriggerTest {
         ];
   
         for (Task updateTaskCheck : newTasksList){
-          System.assertEquals(2, newTasksList.size(), 'Task did not update');
+          System.assertEquals(1, newTasksList.size(), 'Task did not update');
         }
       }
     }

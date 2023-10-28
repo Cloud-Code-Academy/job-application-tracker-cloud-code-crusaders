@@ -1,4 +1,3 @@
-
 @isTest
 global class JoobleCalloutTest{
 
@@ -18,7 +17,7 @@ global class JoobleCalloutTest{
     public static void createJobsFromJsonTest() {
         
         Test.startTest();
-        JoobleCallout.createJobsFromJson(respond(results));
+        JoobleCallout.createJobsFromJson('Test');
         Test.stopTest();
          
         List<Job_Postings__c> jobsToInsert = [

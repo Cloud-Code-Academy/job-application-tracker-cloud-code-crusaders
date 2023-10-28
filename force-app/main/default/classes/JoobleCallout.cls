@@ -4,7 +4,7 @@ public with sharing class JoobleCallout {
 
         public static void postJoobleCallout(){
                 
-                Http postCall = new Http();
+                 Http postCall = new Http();
                 HttpRequest request = new HttpRequest();
                 request.setEndpoint('https://jooble.org/api/2a3be2fb-3555-410e-924b-8e2c964de9d3');
                 request.setHeader ('Content-type', 'application/json');
@@ -15,15 +15,17 @@ public with sharing class JoobleCallout {
                 
                 if (response.getStatusCode() == 200){    
 
-                String newJobs = response.getbody();
+                List<Job_Postings__c>jobsToInsert = createJobsFromJson(response.getbody());
                 }
         }
+        
 
+    
        public static List<Job_Postings__c> createJobsFromJson(String newJobs){
                 Map<String, Object> parsedJobs = (Map<String,Object>)JSON.deserializeUntyped(newJobs);
                 List<Job_Postings__c> jobsToInsert =  new List<Job_Postings__c>();
                 if(parsedJobs.containsKey('jobs')){
-                         List<Object> jobsList = (List<Object>)parsedJobs.get('jobs');
+                         List<Object> jobsList = (List<Object>) parsedJobs.get('jobs');
 
                 for (Object obj : jobsList) {
                         if(obj instanceof Map<String,Object>){
@@ -40,21 +42,14 @@ public with sharing class JoobleCallout {
                         jobsToInsert.add(record);
                         }
                 }
-        
+         }
         
                 if (!jobsToInsert.isEmpty()){
 
                 insert jobsToInsert;
                 }     
         }
-                 return jobsToInsert;
+                return jobsToInsert;
 
         }
-}
 
-    
-
-
-
-    
-     
