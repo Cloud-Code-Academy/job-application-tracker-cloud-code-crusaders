@@ -16,6 +16,7 @@ public with sharing class JoobleCallout {
                 if (response.getStatusCode() == 200){    
 
                 List<Job_Postings__c>jobsToInsert = createJobsFromJson(response.getbody());
+                List<Job_Postings__c>jobsToInsert = createJobsFromJson(response.getbody());
                 }
         }
         
