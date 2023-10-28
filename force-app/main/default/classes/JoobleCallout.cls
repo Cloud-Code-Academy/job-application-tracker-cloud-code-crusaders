@@ -15,7 +15,7 @@ public with sharing class JoobleCallout {
                 
                 if (response.getStatusCode() == 200){    
 
-                String newJobs = response.getbody();
+                List<Job_Postings__c>jobsToInsert = createJobsFromJson(response.getbody());
                 }
         }
         
@@ -41,14 +41,14 @@ public with sharing class JoobleCallout {
                         record.Company__c = (String) jsonMap.get('company');
                         jobsToInsert.add(record);
                         }
+                	}
                 }
         
                 if (!jobsToInsert.isEmpty()){
 
                 insert jobsToInsert;
-                }
-        }       
-                 return jobsToInsert;
+                }     
+                return jobsToInsert;
 
         }
 }
