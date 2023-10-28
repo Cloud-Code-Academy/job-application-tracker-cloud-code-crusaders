@@ -41,11 +41,12 @@ public with sharing class JoobleCallout {
                         }
                 }
         
+        
                 if (!jobsToInsert.isEmpty()){
 
                 insert jobsToInsert;
-                }
-        }       
+                }     
+        }
                  return jobsToInsert;
 
         }
