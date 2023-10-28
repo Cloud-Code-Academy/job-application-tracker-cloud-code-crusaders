@@ -2,6 +2,17 @@ import { LightningElement, wire, api } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 
 const FIELDS = ['Job_Application__c.Salary__c'];
+const socialSecurityRate = .0620;
+const medicareWithholdingRate = .0145;
+const federalTaxRates = [
+    { minIncome: 0, maxIncome: 10275, rate: 0.10 },
+    { minIncome: 10276, maxIncome: 41775, rate: 0.12 },
+    { minIncome: 41776, maxIncome: 89075, rate: 0.22 },
+    { minIncome: 89076, maxIncome: 170050, rate: 0.24 },
+    { minIncome: 170051, maxIncome: 215950, rate: 0.32 },
+    { minIncome: 215951, maxIncome: 539900, rate: 0.35 },
+    { minIncome: 539901, maxIncome: Infinity, rate: 0.37 },
+];
 export default class TaxCalculator extends LightningElement {
     salary = 0;
     yearlyPay = 0;
@@ -20,7 +31,7 @@ export default class TaxCalculator extends LightningElement {
             this.retrievedSalary = data.fields.Salary__c.value;
             this.handleCalculations();
         } else if (error) {
-            // Handle error here
+    
         }
     }
     handleCalculations() {
