@@ -1,58 +1,38 @@
-List<Job_Application__c> staleJobs = [
-            SELECT Id, Status__c, LastModifiedDate, Name, Follow_up_Date__c
-            FROM Job_Application__c
-            WHERE (Status__c <> 'Closed' AND Status__c <> 'Accepted' AND Status__c <> 'Saved') 
-            AND Follow_up_Date__c < LAST_N_DAYS:30
-        ];
+//System.debug(JoobleCallout.postJoobleCallout());
+String rawJobs = '[{"title":"Salesforce Project Manager","location":"Dallas, TX","snippet":"&nbsp;...quality and track project health to ensure customer satisfaction.\n\nKey Responsibilities Include\n\n* Plan, lead and control complex <b>Salesforce </b>projects and related personnel utilizing project methodologies and related tools to bring projects to successful completion,...&nbsp;","salary":"","source":"myjobhelper.com","type":"","link":"https://jooble.org/desc/-5428090040033836274?ckey=Jr+Salesforce+Dev&rgn=45973&pos=1&elckey=2060224854152013037&p=1&aq=4283254144694447683&cid=3047&jobAge=68&relb=175&brelb=115&bscr=4543.904&scr=6914.636521739131","company":"Crowe Horwath","updated":"2023-10-23T12:40:20.2070000","id":-5428090040033836274},{"title":"Lead Salesforce CDP Developer","location":"Irving, TX","snippet":"&nbsp;...-generating and cost-saving results. \r\n Brief Description of Role  : \r\n We are looking for an experienced <b>Salesforce </b>Lead Developer who will play the role as a <b>dev </b>lead and also a hands-on developer to manage the implementation, development, and operations of Salesforce...&nbsp;","salary":"","source":"jobleads.com","type":"","link":"https://jooble.org/desc/815269524476555491?ckey=Jr+Salesforce+Dev&rgn=45973&pos=2&elckey=2060224854152013037&p=1&aq=4283254144694447683&cid=3047&jobAge=44&relb=148&brelb=115&bscr=5072.165&scr=6527.655826086957","company":"Epsilon Data Interactive, Inc.","updated":"2023-10-24T00:00:00.0000000","id":815269524476555491}]';
 
-System.debug(staleJobs);
+String newJobs = rawJobs.replaceAll('\n','').replaceAll('\r',''); //scrubs job posting of illegal characters
+//System.debug(newJobs);
+//public static Job_Postings__c createJobsFromJson(String rawJobs){
+       //String newjobs;
+               List<Object> jsonList = (List<Object>)JSON.deserializeUntyped(newJobs);
+              //  System.debug(jsonList);
+             // fromJSON jobsJson = (fromJSON)JSON.deserialize(newJobs,fromJSON.class);
+                List<Job_Postings__c> jobsList =  new List<Job_Postings__c>();
 
-       if(!staleJobs.isEmpty()){
-
-            List<Job_Application__c> closedJobs = new List<Job_Application__c>();
-
-            for (Job_Application__c updateJobs : staleJobs){
-                updateJobs.Status__c = 'Closed';
-                updateJobs.Notes__c = 'This Job Application has not been updated in more than 30 days and was closed by an automation.';
-                closedJobs.add(updateJobs);    
-            }
-
-                update closedJobs;
-                System.debug(closedJobs);
-        }
-
-<<<<<<< HEAD
-=======
-            Interview__c interview = new Interview__c(
-            Name = 'Test Interview 10-26-23',
-            Interview_Date__c = System.today().addDays(1),
-            Company_Name__c = 'Test Company'
-        );
-        insert interview;
-        
-
-        Date interviewDate = Date.today().addDays(1);
-        List<Interview__c> interviews = [SELECT Id, Name, Interview_Date__c, Company_Name__c, Owner.Email FROM Interview__c WHERE Interview_Date__c = :interviewDate];
+               for (Object obj : jsonList) {
+               Map<String, Object> jsonMap = (Map<String, Object>)obj;
+                //String title = (String) jsonMap.get('title');
+               // if (title.toLowerCase().contains('Salesforce')) {
+                       Job_Postings__c record = new Job_Postings__c();
+            record.Title__c = (String) jsonMap.get('title');
+            record.Location__c = (String) jsonMap.get('location');
+            record.Snippet__c = (String) jsonMap.get('snippet');
+            record.Salary__c = (String) jsonMap.get('salary');
+            record.Source__c = (String) jsonMap.get('source');
+            record.Type__c = (String) jsonMap.get('type');
+            record.Link__c = (String) jsonMap.get('link');
+            record.Company__c = (String) jsonMap.get('company');
+           // record.Updated__c = (Datetime) jsonMap.get('updated');
+            //record.External_Job_Id__c = (String) jsonMap.get('id');
+            jobsList.add(record);
+    }
     
-        // Check if there are interviews scheduled for tomorrow
-        if (!interviews.isEmpty()) {
-            for (Interview__c interview : interviews) {
-                // Get the email address from the Owner's Email field
-                String recipientEmail = (interview.Owner != null) ? interview.Owner.Email : null;
-    
-                try {
-                    // Create and send email
-                    Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-                    mail.setToAddresses(new String[] { 'therontroxel@gmail.com' });
-                    mail.setSubject('Interview Reminder');
-                    mail.setPlainTextBody('This is a reminder of your interview scheduled for ' + interview.Interview_Date__c + ' at ' + interview.Company_Name__c);
-    
-                    Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
-    
-                } catch (Exception e) {
-                    System.debug('Error sending email: ' + e.getMessage());
-                }
-            }
-        }
-    
->>>>>>> f3e86954d49d09f2feec5f23ef803e688f435042
+     if(!jobsList.isEmpty()){
+            insert jobsList;
+     }
+           //return null;
+
+
+
+            

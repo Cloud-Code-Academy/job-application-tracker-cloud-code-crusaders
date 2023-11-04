@@ -9,22 +9,23 @@ public with sharing class JoobleCallout {
                 request.setEndpoint('https://jooble.org/api/2a3be2fb-3555-410e-924b-8e2c964de9d3');
                 request.setHeader ('Content-type', 'application/json');
                 request.setMethod('POST');
-                request.setBody('{"keywords": "Jr Salesforce Dev", "location": "Dallas, TX"}');
+                request.setBody('{"keywords": "Jr Salesforce Dev", "location": "Dallas,Tx"}');
                 
                 HttpResponse response = postCall.send(request);
                 
                 if (response.getStatusCode() == 200){    
 
                 List<Job_Postings__c>jobsToInsert = createJobsFromJson(response.getbody());
-                List<Job_Postings__c>jobsToInsert = createJobsFromJson(response.getbody());
                 }
         }
-        
 
-    
-       public static List<Job_Postings__c> createJobsFromJson(String newJobs){
+
+     public static List<Job_Postings__c> createJobsFromJson(String newJobs){
+        System.debug(newJobs);
                 Map<String, Object> parsedJobs = (Map<String,Object>)JSON.deserializeUntyped(newJobs);
+               
                 List<Job_Postings__c> jobsToInsert =  new List<Job_Postings__c>();
+
                 if(parsedJobs.containsKey('jobs')){
                          List<Object> jobsList = (List<Object>) parsedJobs.get('jobs');
 
@@ -43,14 +44,22 @@ public with sharing class JoobleCallout {
                         jobsToInsert.add(record);
                         }
                 }
-         }
+        }
         
                 if (!jobsToInsert.isEmpty()){
 
                 insert jobsToInsert;
-                }     
+                }
+              
+                 return jobsToInsert;
         }
-                return jobsToInsert;
 
         }
 
+
+    
+
+
+
+    
+     
