@@ -2,19 +2,20 @@
     <lightning-card>
         <h1 class="headerFont">Net Salary</h1>
         <div class="slds-p-around_medium">
-           <lightning-input label="Job Salary From Listing " type="number" onchange={calculatePay} class="custom-label" value={salary}></lightning-input>
+            <lightning-input label="Job Salary From Listing " type="number" onchange={calculatePay} class="custom-label" value={salary}></lightning-input>
             <div class="pay-container slds-p-around_medium">
                 <div class="pay-values">
-                    <p>Yearly Pay: <span class="green-text">${yearlyRoundedPay}</span></p>
-                    <p>Six Months Pay: <span class="green-text">${sixMonthsPay}</span></p>
-                    <p>Monthly Pay: <span class="green-text">${monthlyPay}</span></p>
-                    <p>Bi-Weekly Pay: <span class="green-text">${biWeeklyPay}</span></p>
+                    <p>Yearly Pay: <lightning-formatted-number value={yearlyPay} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number></p>
+                    <p>Six Months Pay: <lightning-formatted-number value={sixMonthsPay} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number></p>
+                    <p>Monthly Pay: <lightning-formatted-number value={monthlyPay} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number></p>
+                    <p>Bi-Weekly Pay: <lightning-formatted-number value={biWeeklyPay} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number></p>
                 </div>
                 <div class="rounded-box slds-p-around_medium">
                     <p class="subTitleText">Yearly Deductions</p>
-                    <p>Federal Tax: <span class="red-text">${federalWithholdings}</span></p>
-                    <p>Social Security Tax: <span class="red-text">${socialSecurityWithholdings}</span></p>
-                    <p>Medicare Tax: <span class="red-text">${medicareWitholdings}</span></p>
+                    <p>Federal Tax: <lightning-formatted-number value={federalWithholdings} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number></p>
+                    <p>Social Security Tax: <lightning-formatted-number value={socialSecurityWithholdings} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number></p>
+                    <p>Medicare Tax: <lightning-formatted-number value={medicareWitholdings}
+                format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number></p>
                 </div>
             </div>
         </div>
